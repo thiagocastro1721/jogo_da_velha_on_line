@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/pages/login.page.dart';
 
+//teste para o script
 void main() {
   runApp(const MyApp());
 }
