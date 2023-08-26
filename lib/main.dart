@@ -3,6 +3,7 @@ import 'package:my_app/pages/login.page.dart';
 
 //teste para o script
 //segundo teste!!!!!!!!!!
+//terceiro teste!!!!!!!!!
 void main() {
   runApp(const MyApp());
 }
