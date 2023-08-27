@@ -6,6 +6,7 @@ import 'package:my_app/pages/login.page.dart';
 //terceiro teste!!!!!!!!!
 //quarto teste!!!!!!!!!!!
 //quinto teste!!!!!!!!!!!
+//sexto texte!!!!!!!!!!!!
 void main() {
   runApp(const MyApp());
 }
