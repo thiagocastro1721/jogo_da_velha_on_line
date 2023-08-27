@@ -1,0 +1,54 @@
+CLONAR (FAZER APENAS UMA VEZ)
+
+	PASSO 1
+		Abra o Explorador de arquivos do Windows e localize o pendrive e crie a pasta jogo_da_velha ou qualquer outra pasta a sua escolha.
+	PASSO 2 
+		Selecione a pasta recém criada e clique o botão esquerdo do mouse e depois selecione 'abrir no terminal'.
+		Ou você pode também abrir no bash do git selecionando a pasta recém criada e clicando no botão esquerdo do mouse > Mostrar mais opções > Git Bash Here. 
+	PASSO 3 
+		Com o terminal aberto na pasta especificada, digite o camando:
+		git clone https://github.com/thiagocastro1721/jogo_da_velha_on_line.git
+
+ATUALIZAR AS BRANCHES DA NUVEM PARA O PENDRIVE 
+	(FAÇA ISSO SE JÁ TIVER CLONADO E FOR A PRIMEIRA VEZ VAI ATUALIZAR COM PULL, CASO CONTRÁRIO PASSE PARA O PRÓXIMO TÓPICO)
+	Se você deseja manter atualizadas todas as branches do seu clone no pendrive, siga os passos:
+
+	PASSO 1
+		Abra o Explorador de arquivos do Windows e localize o pendrive e a pasta jogo_da_velha_on_line.
+	PASSO 2 
+		Selecione a pasta jogo_da_velha_on_line e clique no botão esquerdo do mouse e depois selecione 'abrir no terminal'.
+		Ou você pode também abrir no bash do git selecionando a pasta jogo_da_velha_on_line e clicando no botão esquerdo do mouse > Mostrar mais opções > Git Bash Here.
+	PASSO 3 Buscar Todas as Branches Remotas:
+		git fetch --all
+	PASSO 4 Verifique em qual branch você está como o seguinte comando:
+		git branch
+	PASSO 5 Verifique todas branches, inclusive as remotas com o seguinte comando:
+		obs: branches remotas podem ser acessadas normalmente localmente.
+		git branch -a
+	PASSO 6
+		Fazer um pull (buscar atualizações) para todas as branches:
+		git pull --all
+	PASSO 7
+		Navegar para a branch desejada:
+		git checkout nome-da-branch
+	PASSO 8
+		Verificar alterações abrindo os arquivos no vscode:
+		code .
+
+ATUALIZAR AS BRANCHES DA NUVEM PARA O PENDRIVE 
+	(SEGUNDA VEZ EM DIANTE)
+
+	PASSO 1
+		Abra o Explorador de arquivos do Windows e localize o pendrive e a pasta jogo_da_velha_on_line.
+	PASSO 2 
+		Selecione a pasta jogo_da_velha_on_line e clique no botão esquerdo do mouse e depois selecione 'abrir no terminal'.
+		Ou você pode também abrir no bash do git selecionando a pasta jogo_da_velha_on_line e clicando no botão esquerdo do mouse > Mostrar mais opções > Git Bash Here.
+	PASSO 3
+		Fazer um pull (buscar atualizações) para todas as branches:
+		git pull --all
+	PASSO 4
+		Navegar para a branch desejada:
+		git checkout nome-da-branch
+	PASSO 5
+		Verificar alterações abrindo os arquivos no vscode:
+		code .
