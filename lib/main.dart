@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/pages/login.page.dart';
-
+//Teste pull pelo vs code.
 void main() {
   runApp(const MyApp());
 }
