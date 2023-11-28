@@ -42,6 +42,10 @@ class _MyCustomFormState extends State<MyCustomForm> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+          appBar: AppBar(
+          title: const Text('Login'),
+          centerTitle: true,
+          ),
           body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +65,8 @@ class _MyCustomFormState extends State<MyCustomForm> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextFormField(
-                  autofocus: true,
+                  //chamar teclado assim que a tela eh aberta
+                  //autofocus: true,: true,
                   focusNode: fieldOne,
                   decoration: InputDecoration(
                     icon: const Icon(
@@ -82,6 +87,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: TextFormField(
+                //chamar teclado assim que a tela eh aberta
                 //autofocus: true,
                 focusNode: fieldTwo,
                 obscureText: _showPassword == false ? true : false,
@@ -154,7 +160,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                         90, 30), // Define a altura mínima e largura do botão
                   ),
                   child: const Text(
-                    'Cadastre-se',
+                    'Cadastrar',
                     style: TextStyle(fontSize: 18),
                   ),
                 )),
