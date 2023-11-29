@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/pages/my_game_page.dart';
+//import 'package:my_app/pages/my_game_page.dart';
 import 'package:my_app/pages/register.page.dart';
+import 'package:my_app/pages/homepage.dart';
 
 // Define a custom Form widget.
 class MyCustomForm extends StatefulWidget {
@@ -126,7 +127,8 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     // Função a ser executada quando o botão for pressionado
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: ((context) => const MyGame()),
+                        //builder: ((context) => const MyGame()),
+                        builder: ((context) => const MyHomePage()),
                       ),
                     );
                   },
@@ -150,6 +152,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: ((context) => const MyRegisterForm()),
+                        //builder: ((context) => const MyHomePage()),
                       ),
                     );
                   },
@@ -166,7 +169,8 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 )),
           ],
         ),
-      )),
+      )
+      ),
     );
   }
 }
