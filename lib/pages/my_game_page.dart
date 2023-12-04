@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vibration/vibration.dart';
 
 class MyGame extends StatefulWidget {
   const MyGame({Key? key}) : super(key: key);
@@ -26,71 +27,166 @@ class _MyGameState extends State<MyGame> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AbsorbPointer(
-            absorbing: !jogoIniciado,
-            child: Column(
-              children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(14.0),
-                      child: Text(
-                        "Jogo da Velha",
-                        style: TextStyle(
-                            fontSize: 50,
-                            color: Colors.black,
-                            fontStyle: FontStyle.italic),
-                       ),
+          Padding(
+            padding: const EdgeInsets.only(top: 21, bottom: 50), // Adiciona padding superior de 21
+            child: Container(
+              height: 60,
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        'assets/player2.png',
+                        width: 55,
+                        height: 55,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    myButton(linha: 0, coluna: 0),
-                    myButton(linha: 0, coluna: 1),
-                    myButton(linha: 0, coluna: 2),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    myButton(linha: 1, coluna: 0),
-                    myButton(linha: 1, coluna: 1),
-                    myButton(linha: 1, coluna: 2),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    myButton(linha: 2, coluna: 0),
-                    myButton(linha: 2, coluna: 1),
-                    myButton(linha: 2, coluna: 2),
-                  ],
-                ),
-              ],
+                  ),
+                  const Text(
+                    'WWWWWWWWWWWW',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const Text(
+                    '1500',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text(
-                  textoInformativo,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+              AbsorbPointer(
+                absorbing: !jogoIniciado,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        myButton(linha: 0, coluna: 0),
+                        myButton(linha: 0, coluna: 1),
+                        myButton(linha: 0, coluna: 2),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        myButton(linha: 1, coluna: 0),
+                        myButton(linha: 1, coluna: 1),
+                        myButton(linha: 1, coluna: 2),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        myButton(linha: 2, coluna: 0),
+                        myButton(linha: 2, coluna: 1),
+                        myButton(linha: 2, coluna: 2),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              AbsorbPointer(
-                  absorbing: jogoIniciado,
-                  child: Opacity(
-                      opacity: jogoIniciado ? 0 : 1, child: btInicio())),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Text(
+                      textoInformativo,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  AbsorbPointer(
+                    absorbing: jogoIniciado,
+                    child: Opacity(
+                      opacity: jogoIniciado ? 0 : 1,
+                      child: btInicio(),
+                    ),
+                  ),
+                ],
+              ),
             ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 82, bottom: 21), // Adiciona padding inferior de 30
+            child: Container(
+              height: 60,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      'assets/player1.png',
+                      width: 55,
+                      height: 55,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const Text(
+                    'WWWWWWWWWWWW',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const Text(
+                    '1600',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -101,23 +197,40 @@ class _MyGameState extends State<MyGame> {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           setState(() {
             clique(coluna: coluna, linha: linha);
           });
+
+          // Adiciona uma pequena vibração ao tocar no botão
+          _vibrateShort();
         },
         style: ElevatedButton.styleFrom(
           fixedSize: const Size(100, 100),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+          ),
           backgroundColor: botaoVencedor[linha][coluna]
               ? Colors.red // Cor vermelha para os botões vencedores
               : const Color.fromARGB(255, 24, 108, 177), // Cor padrão
         ),
         child: Text(
           grade[linha][coluna],
-          style: const TextStyle(fontSize: 50),
+          style: const TextStyle(fontSize: 50, color: Colors.black),
         ),
       ),
     );
+  }
+
+  void _vibrateShort() async {
+    // Verifica se o dispositivo suporta vibração
+    bool hasVibrator = await Vibration.hasVibrator() ?? false;
+
+    // Verifica se o dispositivo suporta vibração antes de vibrar
+    if (hasVibrator) {
+      // Faz o celular vibrar por um curto período (ajuste conforme necessário)
+      Vibration.vibrate(duration: 100);
+    }
   }
 
   Widget btInicio() {
@@ -139,7 +252,9 @@ class _MyGameState extends State<MyGame> {
           });
         },
         style: ElevatedButton.styleFrom(
-            fixedSize: const Size(200, 50), backgroundColor: Colors.amber),
+          fixedSize: const Size(200, 50),
+          backgroundColor: Colors.amber,
+        ),
         child: Text(
           jogadas > 0 ? "jogar novamente" : "Bora Jogar!",
           style: const TextStyle(fontSize: 20, color: Colors.black),
@@ -156,6 +271,7 @@ class _MyGameState extends State<MyGame> {
         verificaVencedor(jogador: jogadorAtual, linha: linha, coluna: coluna);
 
     if (existeVencedor) {
+      Vibration.vibrate();
       textoInformativo = '$jogadorAtual Venceu!';
       jogoIniciado = false;
     } else if (existeVencedor == false && jogadas == 9) {
