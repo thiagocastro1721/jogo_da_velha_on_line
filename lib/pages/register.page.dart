@@ -13,11 +13,13 @@ import 'package:image_picker/image_picker.dart';
 //import 'package:my_app/pages/my_game_page.dart';
 import 'package:flutter/services.dart';
 import 'package:my_app/pages/login.page.dart';
+import 'package:my_app/pages/galeria_ou_camera.dart';
 //import 'package:image_picker/image_picker.dart';
 
 // Define a custom Form widget.
 class MyRegisterForm extends StatefulWidget {
-  const MyRegisterForm({super.key});
+  final File? imagem;
+  const MyRegisterForm({Key? key, required this.imagem}) : super(key: key);
 
   @override
   State<MyRegisterForm> createState() => _MyFormState();
@@ -49,11 +51,12 @@ class _MyFormState extends State<MyRegisterForm> {
 
   final ImagePicker _picker = ImagePicker();
   XFile? image;
+  File? imagem;
 
   @override
   void initState() {
     super.initState();
-
+    imagem = widget.imagem;
     myFocusNode = FocusNode();
   }
 
@@ -98,7 +101,7 @@ class _MyFormState extends State<MyRegisterForm> {
                   padding: const EdgeInsets.only(left: 10, bottom: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[ 
+                    children: <Widget>[
                       const Padding(
                         padding: EdgeInsets.only(right: 15),
                         child: Icon(
@@ -126,17 +129,24 @@ class _MyFormState extends State<MyRegisterForm> {
                           color: Colors.transparent,
                           child: InkWell(
                             onTap: () async {
-                              final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  //builder: ((context) => const MyGame()),
+                                  builder: ((context) =>
+                                      const AddPhotoScreen()),
+                                ),
+                              );
+                              //final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-                              if (pickedImage == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                  content: Text('Imagem não selecionada!'),
-                                ));
-                              } else {
-                                setState(() {
-                                  image = pickedImage;
-                                });
-                              }
+                              //if (pickedImage == null) {
+                              //  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              //    content: Text('Imagem não selecionada!'),
+                              //  ));
+                              //} else {
+                              //  setState(() {
+                              //    image = pickedImage;
+                              //  });
+                              //}
                             },
                             child: SizedBox(
                               width: 312,
@@ -145,9 +155,11 @@ class _MyFormState extends State<MyRegisterForm> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    if (image == null) const SizedBox(height: 40),
-                                    if (image == null) const Icon(Icons.control_point),
-                                    if (image != null)
+                                    if (imagem == null)
+                                      const SizedBox(height: 40),
+                                    if (imagem == null)
+                                      const Icon(Icons.control_point),
+                                    if (imagem != null)
                                       Container(
                                         width: 128,
                                         height: 128,
@@ -156,25 +168,30 @@ class _MyFormState extends State<MyRegisterForm> {
                                         ),
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(8),
-                                          child: Image.file(
-                                            File(image!.path),
-                                            width: 128,
-                                            height: 128,
-                                            fit: BoxFit.cover,
-                                          ),
+                                          child: imagem != null
+                                              ? Image.file(
+                                                  imagem!,
+                                                  width: 128,
+                                                  height: 128,
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : const Text("Imagem não disponível"),
                                         ),
                                       ),
-                                    if (image == null)
+
+                                    if (imagem == null)
                                       const Text(
-                                        "Adicionar fotos. Não obrigatório.",
+                                        "Adicionar foto. Não obrigatório.",
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
-                                          color: Color.fromARGB(255, 67, 67, 67),
+                                          color:
+                                              Color.fromARGB(255, 67, 67, 67),
                                         ),
                                       ),
-                                    if (image == null) const SizedBox(height: 44),
+                                    if (imagem == null)
+                                      const SizedBox(height: 44),
                                   ],
                                 ),
                               ),
@@ -185,8 +202,6 @@ class _MyFormState extends State<MyRegisterForm> {
                     ],
                   ),
                 ),
-
-
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 8),

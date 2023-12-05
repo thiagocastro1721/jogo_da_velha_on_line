@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:my_app/pages/my_game_page.dart';
 import 'package:my_app/pages/register.page.dart';
-import 'package:my_app/pages/teste.dart';
+import 'package:my_app/pages/homepage.dart';
 
 // Define a custom Form widget.
 class MyCustomForm extends StatefulWidget {
@@ -120,29 +120,30 @@ class _MyCustomFormState extends State<MyCustomForm> {
               ),
             ),
             Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Função a ser executada quando o botão for pressionado
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        //builder: ((context) => const MyGame()),
-                        builder: ((context) => const AddPhotoScreenAnimal()),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(
-                        10), // Ajusta o espaçamento interno
-                    minimumSize: const Size(
-                        120, 30), // Define a altura mínima e largura do botão
-                  ),
-                  child: const Text(
-                    'Entrar',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                )),
+              padding:
+              const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Função a ser executada quando o botão for pressionado
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      //builder: ((context) => const MyGame()),
+                      builder: ((context) => const MyHomePage()),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(
+                      10), // Ajusta o espaçamento interno
+                  minimumSize: const Size(
+                      120, 30), // Define a altura mínima e largura do botão
+                ),
+                child: const Text(
+                  'Entrar',
+                  style: TextStyle(fontSize: 18),
+                ),
+              )
+            ),
             Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
@@ -151,7 +152,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     // Função a ser executada quando o botão for pressionado
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: ((context) => const MyRegisterForm()),
+                        builder: (context) => const MyRegisterForm(imagem: null),
                         //builder: ((context) => const MyHomePage()),
                       ),
                     );
