@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vibration/vibration.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class MyGame extends StatefulWidget {
   const MyGame({Key? key}) : super(key: key);
@@ -8,6 +9,9 @@ class MyGame extends StatefulWidget {
 }
 
 class _MyGameState extends State<MyGame> {
+  //Controlador de tela de Loading
+  bool isLoading = false;
+
   List<List<bool>> botaoVencedor = [
     [false, false, false],
     [false, false, false],
@@ -24,12 +28,14 @@ class _MyGameState extends State<MyGame> {
   bool jogoIniciado = false;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => isLoading
+    ? const LoadingPage()
+    : Scaffold(
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 21, bottom: 50), // Adiciona padding superior de 21
+            padding: const EdgeInsets.only(
+                top: 21, bottom: 50), // Adiciona padding superior de 21
             child: Container(
               height: 60,
               decoration: const BoxDecoration(
@@ -139,7 +145,8 @@ class _MyGameState extends State<MyGame> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 82, bottom: 21), // Adiciona padding inferior de 30
+            padding: const EdgeInsets.only(
+                top: 82, bottom: 21), // Adiciona padding inferior de 30
             child: Container(
               height: 60,
               width: double.infinity,
@@ -191,7 +198,7 @@ class _MyGameState extends State<MyGame> {
         ],
       ),
     );
-  }
+  
 
   Widget myButton({required int linha, required int coluna}) {
     return Padding(
@@ -208,7 +215,7 @@ class _MyGameState extends State<MyGame> {
         style: ElevatedButton.styleFrom(
           fixedSize: const Size(100, 100),
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(8),
           ),
           backgroundColor: botaoVencedor[linha][coluna]
               ? Colors.red // Cor vermelha para os botões vencedores
@@ -340,5 +347,38 @@ class _MyGameState extends State<MyGame> {
     }
 
     return venceu;
+  }
+}
+
+class LoadingPage extends StatelessWidget {
+  const LoadingPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blue.shade600,
+      body: const Column( 
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 200, bottom: 71), // Adiciona padding inferior de 30
+            child: Text(
+              'Procurando jogador.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+       Center(
+        child: SpinKitCubeGrid(
+          size: 140,
+          color: Colors.white,
+        ),
+      ),
+    ]),
+    );
   }
 }
