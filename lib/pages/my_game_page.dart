@@ -11,6 +11,25 @@ class MyGame extends StatefulWidget {
 class _MyGameState extends State<MyGame> {
   //Controlador de tela de Loading
   bool isLoading = false;
+  Icon iconCheck = Icon(Icons.check, color: Colors.green);
+  Icon iconClose = Icon(Icons.close, color: Colors.red);
+  List<Icon> marcadorDePontos = [];
+
+  Icon? iconeVitoria;
+
+  void incrementarIcone() {
+    setState(() {
+      iconeVitoria = Icon(Icons.check, color: Colors.green);
+      marcadorDePontos.add(iconeVitoria!);
+    });
+  }
+
+  void incrementarIconeDerrota() {
+    setState(() {
+      iconeVitoria = Icon(Icons.close, color: Colors.red);
+      marcadorDePontos.add(iconeVitoria!);
+    });
+  }
 
   List<List<bool>> botaoVencedor = [
     [false, false, false],
@@ -29,176 +48,183 @@ class _MyGameState extends State<MyGame> {
 
   @override
   Widget build(BuildContext context) => isLoading
-    ? const LoadingPage()
-    : Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-                top: 21, bottom: 50), // Adiciona padding superior de 21
-            child: Container(
-              height: 60,
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        'assets/player2.png',
-                        width: 55,
-                        height: 55,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  const Text(
-                    'WWWWWWWWWWWW',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const Text(
-                    '1500',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+      ? const LoadingPage()
+      : Scaffold(
+          body: Column(
             children: [
-              AbsorbPointer(
-                absorbing: !jogoIniciado,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        myButton(linha: 0, coluna: 0),
-                        myButton(linha: 0, coluna: 1),
-                        myButton(linha: 0, coluna: 2),
-                      ],
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 21, bottom: 50), // Adiciona padding superior de 21
+                child: Container(
+                  height: 60,
+                  decoration: const BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        myButton(linha: 1, coluna: 0),
-                        myButton(linha: 1, coluna: 1),
-                        myButton(linha: 1, coluna: 2),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        myButton(linha: 2, coluna: 0),
-                        myButton(linha: 2, coluna: 1),
-                        myButton(linha: 2, coluna: 2),
-                      ],
-                    ),
-                  ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            'assets/player2.png',
+                            width: 55,
+                            height: 55,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        'WWWWWWWWWWWW',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const Text(
+                        '1500',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: Text(
-                      textoInformativo,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  AbsorbPointer(
+                    absorbing: !jogoIniciado,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            myButton(linha: 0, coluna: 0),
+                            myButton(linha: 0, coluna: 1),
+                            myButton(linha: 0, coluna: 2),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            myButton(linha: 1, coluna: 0),
+                            myButton(linha: 1, coluna: 1),
+                            myButton(linha: 1, coluna: 2),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            myButton(linha: 2, coluna: 0),
+                            myButton(linha: 2, coluna: 1),
+                            myButton(linha: 2, coluna: 2),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  AbsorbPointer(
-                    absorbing: jogoIniciado,
-                    child: Opacity(
-                      opacity: jogoIniciado ? 0 : 1,
-                      child: btInicio(),
-                    ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: Text(
+                          textoInformativo,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      AbsorbPointer(
+                        absorbing: jogoIniciado,
+                        child: Opacity(
+                          opacity: jogoIniciado ? 0 : 1,
+                          child: btInicio(),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 58, bottom: 0),
+                child: Row(
+                  children: [
+                    ...marcadorDePontos,
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 0, bottom: 21), // Adiciona padding inferior de 30
+                child: Container(
+                  height: 60,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          'assets/player1.png',
+                          width: 55,
+                          height: 55,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const Text(
+                        'WWWWWWWWWWWW',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const Text(
+                        '1600',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-                top: 82, bottom: 21), // Adiciona padding inferior de 30
-            child: Container(
-              height: 60,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      'assets/player1.png',
-                      width: 55,
-                      height: 55,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const Text(
-                    'WWWWWWWWWWWW',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const Text(
-                    '1600',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  
+        );
 
   Widget myButton({required int linha, required int coluna}) {
     return Padding(
@@ -280,10 +306,16 @@ class _MyGameState extends State<MyGame> {
     if (existeVencedor) {
       Vibration.vibrate();
       textoInformativo = '$jogadorAtual Venceu!';
+      if (jogadorAtual == 'X') {
+        incrementarIcone();
+      } else {
+        incrementarIconeDerrota();
+      }
       jogoIniciado = false;
     } else if (existeVencedor == false && jogadas == 9) {
       textoInformativo = 'Empate! Deu Velha.';
       jogoIniciado = false;
+      incrementarIconeDerrota();
     } else {
       if (jogadorAtual == 'X') {
         jogadorAtual = 'O';
@@ -357,28 +389,28 @@ class LoadingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue.shade600,
-      body: const Column( 
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 200, bottom: 71), // Adiciona padding inferior de 30
-            child: Text(
-              'Procurando jogador.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
+      body: const Column(children: [
+        Padding(
+          padding: EdgeInsets.only(
+              top: 200, bottom: 71), // Adiciona padding inferior de 30
+          child: Text(
+            'Procurando jogador.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
             ),
           ),
-       Center(
-        child: SpinKitCubeGrid(
-          size: 140,
-          color: Colors.white,
         ),
-      ),
-    ]),
+        Center(
+          child: SpinKitCubeGrid(
+            size: 140,
+            color: Colors.white,
+          ),
+        ),
+      ]),
     );
   }
 }
