@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -11,23 +12,48 @@ class MyGame extends StatefulWidget {
 class _MyGameState extends State<MyGame> {
   //Controlador de tela de Loading
   bool isLoading = false;
-  Icon iconCheck = Icon(Icons.check, color: Colors.green);
-  Icon iconClose = Icon(Icons.close, color: Colors.red);
-  List<Icon> marcadorDePontos = [];
+
+  List<Icon> marcadorDePontosP1 = [];
+  List<Icon> marcadorDePontosP2 = [];
+
+  Duration duration = Duration(minutes: 1);
+  Timer? timer;
+
+  Duration secondaryDuration = Duration(minutes: 1);
+  Timer? secondaryTimer;
+
+  Duration defaultDuration = Duration(seconds: 60);
+
+  bool isPaused = false;
+  bool isSecondaryPaused = false;
 
   Icon? iconeVitoria;
 
-  void incrementarIcone() {
+  void incrementarIconeP1() {
     setState(() {
       iconeVitoria = Icon(Icons.check, color: Colors.green);
-      marcadorDePontos.add(iconeVitoria!);
+      marcadorDePontosP1.add(iconeVitoria!);
     });
   }
 
-  void incrementarIconeDerrota() {
+  void incrementarIconeDerrotaP1() {
     setState(() {
       iconeVitoria = Icon(Icons.close, color: Colors.red);
-      marcadorDePontos.add(iconeVitoria!);
+      marcadorDePontosP1.add(iconeVitoria!);
+    });
+  }
+
+    void incrementarIconeP2() {
+    setState(() {
+      iconeVitoria = Icon(Icons.check, color: Colors.green);
+      marcadorDePontosP2.add(iconeVitoria!);
+    });
+  }
+
+  void incrementarIconeDerrotaP2() {
+    setState(() {
+      iconeVitoria = Icon(Icons.close, color: Colors.red);
+      marcadorDePontosP2.add(iconeVitoria!);
     });
   }
 
@@ -46,6 +72,84 @@ class _MyGameState extends State<MyGame> {
   String textoInformativo = '';
   bool jogoIniciado = false;
 
+  //@override
+  //void initState() {
+  //  super.initState();
+  //  startTimer();
+  //}
+
+  void addTime() {
+    final addSeconds = -1;
+    setState(() {
+      final seconds = duration.inSeconds + addSeconds;
+      duration = Duration(seconds: seconds);
+      // Adiciona a lógica para verificar se o tempo chegou a 00
+      if (duration.inSeconds == 0) {
+        textoInformativo = 'Tempo esgotado! Jogo encerrado.';
+        jogoIniciado = false;
+        timer?.cancel();
+      }
+    });
+  }
+
+  void addSecondaryTime() {
+    final addSeconds = -1;
+    setState(() {
+      final seconds = secondaryDuration.inSeconds + addSeconds;
+      secondaryDuration = Duration(seconds: seconds);
+
+      if (secondaryDuration.inSeconds == 0) {
+        // Lógica para o segundo cronômetro
+        textoInformativo = 'Tempo esgotado! Jogo encerrado.';
+        jogoIniciado = false;
+        secondaryTimer?.cancel();
+      }
+    });
+  }
+
+  void startTimer({Duration? duration}) {
+    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
+    setState(() {
+      duration = Duration(seconds: 60);
+    });
+  }
+
+  void startSecondaryTimer({Duration? secondaryDuration}) {
+    secondaryTimer =
+        Timer.periodic(Duration(seconds: 1), (_) => addSecondaryTime());
+    setState(() {
+      secondaryDuration = Duration(seconds: 60);
+    });
+  }
+
+  void pauseGame() {
+    setState(() {
+      isPaused = true;
+      timer?.cancel();
+    });
+  }
+
+  void resumeGame() {
+    setState(() {
+      isPaused = false;
+      startTimer();
+    });
+  }
+
+  void pauseSecondaryGame() {
+    setState(() {
+      isSecondaryPaused = true;
+      secondaryTimer?.cancel();
+    });
+  }
+
+  void resumeSecondaryGame() {
+    setState(() {
+      isSecondaryPaused = false;
+      startSecondaryTimer();
+    });
+  }
+
   @override
   Widget build(BuildContext context) => isLoading
       ? const LoadingPage()
@@ -54,7 +158,7 @@ class _MyGameState extends State<MyGame> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 21, bottom: 50), // Adiciona padding superior de 21
+                    top: 21, bottom: 2, right: 2, left: 2), // Adiciona padding superior de 21
                 child: Container(
                   height: 60,
                   decoration: const BoxDecoration(
@@ -103,6 +207,17 @@ class _MyGameState extends State<MyGame> {
                       ),
                     ],
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 0, bottom: 15, right: 2),
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ...marcadorDePontosP2,
+                    Spacer(),
+                    buildSecondaryTime(),
+                  ],
                 ),
               ),
               Column(
@@ -163,17 +278,28 @@ class _MyGameState extends State<MyGame> {
                   ),
                 ],
               ),
+              //Padding(
+              //  padding: const EdgeInsets.only(left:130),
+              //  child: Row(
+              //    children: [
+              //      buildTime(),
+              //    ],
+              //  ),
+              //),
               Padding(
-                padding: const EdgeInsets.only(top: 58, bottom: 0),
+                padding: const EdgeInsets.only(top: 30, bottom: 0, right: 2),
                 child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ...marcadorDePontos,
+                    ...marcadorDePontosP1,
+                    Spacer(),
+                    buildTime(),
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 0, bottom: 21), // Adiciona padding inferior de 30
+                    top: 0, bottom: 0, right: 2, left: 2), // Adiciona padding inferior de 30
                 child: Container(
                   height: 60,
                   width: double.infinity,
@@ -282,6 +408,7 @@ class _MyGameState extends State<MyGame> {
             grade = List.generate(3, (i) => List.filled(3, ''));
             jogadorAtual = 'X';
             textoInformativo = '$jogadorAtual é a sua vez.';
+            startTimer();
           });
         },
         style: ElevatedButton.styleFrom(
@@ -307,20 +434,31 @@ class _MyGameState extends State<MyGame> {
       Vibration.vibrate();
       textoInformativo = '$jogadorAtual Venceu!';
       if (jogadorAtual == 'X') {
-        incrementarIcone();
+        incrementarIconeP1();
+        incrementarIconeDerrotaP2();
       } else {
-        incrementarIconeDerrota();
+        incrementarIconeP2();
+        incrementarIconeDerrotaP1();
       }
       jogoIniciado = false;
     } else if (existeVencedor == false && jogadas == 9) {
       textoInformativo = 'Empate! Deu Velha.';
       jogoIniciado = false;
-      incrementarIconeDerrota();
+      incrementarIconeDerrotaP1();
+      incrementarIconeDerrotaP2();
     } else {
       if (jogadorAtual == 'X') {
         jogadorAtual = 'O';
+        pauseGame();
+        if (jogadas == 1) {
+          startSecondaryTimer();
+        } else {
+          resumeSecondaryGame();
+        }
       } else {
         jogadorAtual = 'X';
+        resumeGame();
+        pauseSecondaryGame();
       }
       textoInformativo = '$jogadorAtual é sua vez.';
     }
@@ -380,6 +518,56 @@ class _MyGameState extends State<MyGame> {
 
     return venceu;
   }
+
+  Widget buildTime() {
+    // 9 --> 09 and 11 --> 11
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+
+    return  Padding(
+      padding: const EdgeInsets.only(left: 10, bottom: 2), // Adiciona padding inferior de 30
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          buildTimeCard(time: minutes, header: 'MINUTES'),
+          const SizedBox(width: 2),
+          buildTimeCard(time: seconds, header: 'SECONDS'),
+        ],
+      ),
+    );
+  }
+
+  Widget buildSecondaryTime() {
+    // 9 --> 09 and 11 --> 11
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(secondaryDuration.inMinutes.remainder(60));
+    final seconds = twoDigits(secondaryDuration.inSeconds.remainder(60));
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        buildTimeCard(time: minutes, header: 'MINUTES'),
+        const SizedBox(width: 2),
+        buildTimeCard(time: seconds, header: 'SECONDS'),
+      ],
+    );
+  }
+
+  Widget buildTimeCard({required String time, required String header}) =>
+      Container(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            color: Colors.blue, borderRadius: BorderRadius.circular(8)),
+        child: Text(
+          time,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontSize: 18,
+          ),
+        ),
+      );
 }
 
 class LoadingPage extends StatelessWidget {
