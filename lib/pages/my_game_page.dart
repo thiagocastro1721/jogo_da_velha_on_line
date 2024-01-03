@@ -23,7 +23,7 @@ class _MyGameState extends State<MyGame> {
       child: Container(
         padding: EdgeInsets.all(15.0),
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: Colors.grey[400],
           borderRadius:
               BorderRadius.circular(8.0), // Raio de canto de tamanho 8
         ),
@@ -38,7 +38,7 @@ class _MyGameState extends State<MyGame> {
       child: Container(
         padding: EdgeInsets.all(15.0),
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: Colors.grey[400],
           borderRadius:
               BorderRadius.circular(8.0), // Raio de canto de tamanho 8
         ),
