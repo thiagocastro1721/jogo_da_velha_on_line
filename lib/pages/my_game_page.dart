@@ -13,8 +13,38 @@ class _MyGameState extends State<MyGame> {
   //Controlador de tela de Loading
   bool isLoading = false;
 
-  List<Icon> marcadorDePontosP1 = [];
-  List<Icon> marcadorDePontosP2 = [];
+  //Contador de partidas
+  int contadorDePartidas = 0;
+
+  List<Widget> marcadorDePontosP1 = List.generate(
+    5,
+    (index) => Padding(
+      padding: const EdgeInsets.only(left: 2),
+      child: Container(
+        padding: EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius:
+              BorderRadius.circular(8.0), // Raio de canto de tamanho 8
+        ),
+      ),
+    ),
+  );
+
+  List<Widget> marcadorDePontosP2 = List.generate(
+    5,
+    (index) => Padding(
+      padding: const EdgeInsets.only(left: 2),
+      child: Container(
+        padding: EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius:
+              BorderRadius.circular(8.0), // Raio de canto de tamanho 8
+        ),
+      ),
+    ),
+  );
 
   Duration duration = Duration(minutes: 1);
   Timer? timer;
@@ -31,29 +61,97 @@ class _MyGameState extends State<MyGame> {
 
   void incrementarIconeP1() {
     setState(() {
-      iconeVitoria = Icon(Icons.check, color: Colors.green);
-      marcadorDePontosP1.add(iconeVitoria!);
+      iconeVitoria = Icon(Icons.emoji_events, color: Colors.black);
+
+      // Criar um Container com fundo azul e bordas arredondadas envolvendo o ícone
+      Widget iconeComFundoAzul = Padding(
+        padding: const EdgeInsets.only(left: 2),
+        child: Container(
+          padding: EdgeInsets.all(3.0),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius:
+                BorderRadius.circular(8.0), // Raio de canto de tamanho 8
+          ),
+          child: iconeVitoria,
+        ),
+      );
+
+      // Adicionar o ícone envolvido ao marcadorDePontosP1
+      marcadorDePontosP1.insert(contadorDePartidas, iconeComFundoAzul);
+      marcadorDePontosP1.removeLast();
     });
   }
 
   void incrementarIconeDerrotaP1() {
     setState(() {
-      iconeVitoria = Icon(Icons.close, color: Colors.red);
-      marcadorDePontosP1.add(iconeVitoria!);
+      iconeVitoria = Icon(Icons.close, color: Colors.black);
+
+      // Criar um Container com fundo azul e bordas arredondadas envolvendo o ícone
+      Widget iconeComFundoAzul = Padding(
+        padding: const EdgeInsets.only(left: 2),
+        child: Container(
+          padding: EdgeInsets.all(3.0),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius:
+                BorderRadius.circular(8.0), // Raio de canto de tamanho 8
+          ),
+          child: iconeVitoria,
+        ),
+      );
+
+      // Adicionar o ícone envolvido ao marcadorDePontosP1
+      marcadorDePontosP1.insert(contadorDePartidas, iconeComFundoAzul);
+      marcadorDePontosP1.removeLast();
     });
   }
 
-    void incrementarIconeP2() {
+  void incrementarIconeP2() {
     setState(() {
-      iconeVitoria = Icon(Icons.check, color: Colors.green);
-      marcadorDePontosP2.add(iconeVitoria!);
+      iconeVitoria = Icon(Icons.emoji_events, color: Colors.black);
+      
+      // Criar um Container com fundo azul e bordas arredondadas envolvendo o ícone
+      Widget iconeComFundoAzul = Padding(
+        padding: const EdgeInsets.only(left: 2),
+        child: Container(
+          padding: EdgeInsets.all(3.0),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius:
+                BorderRadius.circular(8.0), // Raio de canto de tamanho 8
+          ),
+          child: iconeVitoria,
+        ),
+      );
+      //
+      // Adicionar o ícone envolvido ao marcadorDePontosP1
+      marcadorDePontosP2.insert(contadorDePartidas, iconeComFundoAzul);
+      marcadorDePontosP2.removeLast();
     });
   }
 
   void incrementarIconeDerrotaP2() {
     setState(() {
-      iconeVitoria = Icon(Icons.close, color: Colors.red);
-      marcadorDePontosP2.add(iconeVitoria!);
+      iconeVitoria = Icon(Icons.close, color: Colors.black);
+
+      // Criar um Container com fundo azul e bordas arredondadas envolvendo o ícone
+      Widget iconeComFundoAzul = Padding(
+        padding: const EdgeInsets.only(left: 2),
+        child: Container(
+          padding: EdgeInsets.all(3.0),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius:
+                BorderRadius.circular(8.0), // Raio de canto de tamanho 8
+          ),
+          child: iconeVitoria,
+        ),
+      );
+
+      // Adicionar o ícone envolvido ao marcadorDePontosP1
+      marcadorDePontosP2.insert(contadorDePartidas, iconeComFundoAzul);
+      marcadorDePontosP2.removeLast();
     });
   }
 
@@ -158,7 +256,10 @@ class _MyGameState extends State<MyGame> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 21, bottom: 2, right: 2, left: 2), // Adiciona padding superior de 21
+                    top: 21,
+                    bottom: 2,
+                    right: 2,
+                    left: 2), // Adiciona padding superior de 21
                 child: Container(
                   height: 60,
                   decoration: const BoxDecoration(
@@ -299,7 +400,10 @@ class _MyGameState extends State<MyGame> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 0, bottom: 0, right: 2, left: 2), // Adiciona padding inferior de 30
+                    top: 0,
+                    bottom: 0,
+                    right: 2,
+                    left: 2), // Adiciona padding inferior de 30
                 child: Container(
                   height: 60,
                   width: double.infinity,
@@ -436,9 +540,11 @@ class _MyGameState extends State<MyGame> {
       if (jogadorAtual == 'X') {
         incrementarIconeP1();
         incrementarIconeDerrotaP2();
+        contadorDePartidas++;
       } else {
         incrementarIconeP2();
         incrementarIconeDerrotaP1();
+        contadorDePartidas++;
       }
       jogoIniciado = false;
     } else if (existeVencedor == false && jogadas == 9) {
@@ -525,8 +631,9 @@ class _MyGameState extends State<MyGame> {
     final minutes = twoDigits(duration.inMinutes.remainder(60));
     final seconds = twoDigits(duration.inSeconds.remainder(60));
 
-    return  Padding(
-      padding: const EdgeInsets.only(left: 10, bottom: 2), // Adiciona padding inferior de 30
+    return Padding(
+      padding: const EdgeInsets.only(
+          left: 10, bottom: 2), // Adiciona padding inferior de 30
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
