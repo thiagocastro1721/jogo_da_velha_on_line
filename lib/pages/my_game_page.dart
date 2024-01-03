@@ -110,7 +110,7 @@ class _MyGameState extends State<MyGame> {
   void incrementarIconeP2() {
     setState(() {
       iconeVitoria = Icon(Icons.emoji_events, color: Colors.black);
-      
+
       // Criar um Container com fundo azul e bordas arredondadas envolvendo o ícone
       Widget iconeComFundoAzul = Padding(
         padding: const EdgeInsets.only(left: 2),
@@ -552,6 +552,7 @@ class _MyGameState extends State<MyGame> {
       jogoIniciado = false;
       incrementarIconeDerrotaP1();
       incrementarIconeDerrotaP2();
+      contadorDePartidas++;
     } else {
       if (jogadorAtual == 'X') {
         jogadorAtual = 'O';
